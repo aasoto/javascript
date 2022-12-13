@@ -4,46 +4,53 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Buscador</title>
-
-    <style>
-        body{font-family: Arial, Helvetica, sans-serif;}
-        
-        #buscador-container{
-            width: 500px;
-            margin: 100px auto;
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        clifford: '#da373d',
+                    },
+                    fontFamily: {
+            				digital: "'Digital Numbers Regular', sans-serif",
+          			},
+                }
+            }
         }
-        #buscador{
-            font-size: 28px;
-            padding: 10px 15px;
+    </script>
+    <style type="text/tailwindcss">
+        @layer components{
+            .content-center {
+                @apply flex items-center justify-center h-screen
+            }
+            .searching {
+                @apply w-full pl-10 pr-5 py-2 border border-gray-900 text-lg
+            }
+            .sugerencias {
+                @apply w-full rounded-b-3xl border border-gray-900 text-lg text-gray-300
+            }
+            .sugerencias div {
+                @apply w-full px-5 py-2 hover:bg-blue-100
+            }
+            .sugerencias a{
+                @apply w-full hover:cursor-pointer
+            }
+            .sugerencias strong{
+                @apply font-bold text-black
+            }
         }
-        #sugerencias{
-            border: solid 1px black;
-            width: 375px;
-            display: none;
-            position: absolute;
-        }
-
-        #sugerencias a{
-            display: block;
-            padding: 10px;
-            text-decoration: none;
-            color: #aaa;
-        }
-        #sugerencias a:hover{
-            background-color: #003366;
-            color: white;
-        }
-
-        #sugerencias strong{
-            color: black;
-        }
-        
     </style>
 </head>
 <body>
-    <div id="buscador-container">
-        <input type="text" id="buscador">
-        <div id="sugerencias">
+    <div class="flex items-center justify-center h-screen">
+        <div id="buscador-container" class="container w-1/2 group">
+            <svg class="w-6 h-6 absolute scale-110 translate-x-3 translate-y-3 text-gray-400 group-hover:text-black" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+            </svg>
+            <input type="text" id="buscador" class="searching rounded-full">
+            <div id="sugerencias" class="sugerencias hidden">
+            </div>
         </div>
     </div>
 

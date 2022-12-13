@@ -1,39 +1,64 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calculadora</title>
-
-    <style>
-        body{font-family: Arial, Helvetica, sans-serif;}
-        #calculadora{
-            width: 500px;
-            margin: 100px auto;
+    <title>Calculadora Tailwindcss</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        clifford: '#da373d',
+                    },
+                    fontFamily: {
+            				digital: "'Digital Numbers Regular', sans-serif",
+          			},
+                }
+            }
         }
-        #calculadora #botones-container{
-            display: grid;
-            grid-template: repeat(4, 1fr) / repeat(4, 1fr);
+    </script>
+    <style type="text/tailwindcss">
+        @layer base{
+            @font-face {
+                font-family: 'Digital Numbers Regular';
+                font-style: normal;
+                font-weight: normal;
+                src: local('Digital Numbers Regular'), url('fonts/DigitalNumbers-Regular.woff') format('woff');
+            }
         }
-
-        #calculadora button{
-            padding: 14px 5px;
+        @layer components {
+            .body {
+                @apply container mx-auto my-auto
+            }
+            .calculadora {
+                @apply rounded-lg w-2/3 mx-auto bg-gray-100 p-5 shadow-lg
+            }
+            .calculadora .display {
+                @apply rounded-lg mx-8 px-6 py-4 bg-gray-300 text-black text-right italic text-6xl
+            }
+            .calculadora .botones-container {
+                @apply grid grid-cols-4 gap-5 mx-8 mt-5
+            }
+            .calculadora .boton-celda {
+                @apply col-span-1
+            }
         }
-        #calculadora #display{
-            border: 1px solid black;
-            padding: 10px;
-            text-align: right;
-            font-size: 48px;
+        @layer base{
+            .calculadora button{
+                @apply rounded-md p-3 shadow text-4xl font-bold text-white bg-gray-800
+            }
         }
     </style>
 </head>
-<body>
-    <div id="calculadora">
-        <div id="display">
+<body class="body">
+    <div id="calculadora" class="calculadora">
+        <div id="display" class="display font-digital">
             0
         </div>
 
-        <div id="botones-container">
+        <div id="botones-container" class="botones-container">
 
         </div>
     </div>

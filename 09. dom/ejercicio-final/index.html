@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Practica DOM</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            clifford: '#da373d',
+          }
+        }
+      }
+    }
+  </script>
+  <style type="text/tailwindcss">
+    @layer utilities {
+      .content-auto {
+        content-visibility: auto;
+      }
+    }
+    @layer components {
+      .nav-bar {
+        @apply w-auto bg-blue-300 rounded-full mx-10 my-3 px-10 py-2
+      }
+      .grid-nav-bar {
+        @apply grid grid-cols-3 gap-5
+      }
+      .grid-nav-bar-col {
+        @apply col-span-1
+      }
+      .nav-image-dimension{
+        @apply w-28
+      }
+
+      .main-dimension {
+        @apply mx-10 my-2
+      }
+
+      .grid-3 {
+        @apply grid grid-cols-3 gap-5 my-3
+      }
+      .col-1 {
+        @apply col-span-1
+      }
+      .col-2 {
+        @apply col-span-2
+      }
+      .col-3 {
+        @apply col-span-3
+      }
+
+      .input-big {
+        @apply w-full border border-gray-600 rounded-lg px-5 py-3 focus:shadow-lg
+      }
+      .input {
+        @apply w-full border border-gray-600 rounded-md px-3 py-1.5 focus:shadow-lg
+      }
+      .btn-primary-full {
+        @apply w-full h-full rounded-lg bg-blue-500 text-white font-bold text-center hover:scale-105 transition duration-200
+      }
+      .btn-danger {
+        @apply rounded-md bg-red-500 mx-2 px-5 py-2 text-white font-bold text-center hover:scale-105 transition duration-200
+      }
+      .btn-secondary {
+        @apply rounded-md bg-gray-200 mx-2 px-5 py-2 text-black font-bold text-center hover:scale-105 transition duration-200
+      }
+      .card {
+        @apply w-full rounded-lg shadow-md border border-gray-300
+      }
+      .card-primary-header {
+        @apply w-full rounded-t-lg bg-blue-500 px-10 py-2 text-white font-bold text-lg
+      }
+      .card-body {
+        @apply w-full p-4
+      }
+      .card-footer {
+        @apply w-full rounded-b-lg px-5 py-2 bg-gray-100 flex flex-row justify-end items-center
+      }
+      .span-card {
+        @apply ml-2 mr-4 capitalize
+      }
+
+      .table {
+        @apply w-full
+      }
+      .table-header {
+        @apply bg-gray-400 text-white
+      }
+      .table-header-cel {
+        @apply px-10 py-2
+      }
+      .table-body {
+        @apply border border-gray-900
+      }
+      .table-body-cel {
+        @apply border border-gray-900 px-10 py-2
+      }
+    }
+  </style>
+</head>
+<body>
+    <header>
+    </header>
+    <main>
+
+    </main>
+    <footer>
+
+    </footer>
+    <script src="main.js"></script>
+</body>
+</html>
