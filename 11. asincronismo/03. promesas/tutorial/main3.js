@@ -47,6 +47,7 @@ const db = [
 const spaniards = new Promise ( function (resolve, reject) {
   const esp = db.filter( function (person) {
     if (person.country == 'España') {
+      person.age = calculate_age(person.birthdate)
       return person
     }
   })
@@ -61,6 +62,7 @@ const spaniards = new Promise ( function (resolve, reject) {
 const colombians = new Promise ( function (resolve, reject) {
   const col = db.filter( function (person) {
     if (person.country == 'Colombia') {
+      person.age = calculate_age(person.birthdate)
       return person
     }
   })
@@ -75,6 +77,7 @@ const colombians = new Promise ( function (resolve, reject) {
 const germans = new Promise ( function (resolve, reject) {
   const ger = db.filter( function (person) {
     if (person.country == 'Alemania') {
+      person.age = calculate_age(person.birthdate)
       return person
     }
   })
@@ -89,6 +92,7 @@ const germans = new Promise ( function (resolve, reject) {
 const mexicans = new Promise ( function (resolve, reject) {
   const mex = db.filter( function (person) {
     if (person.country == 'México') {
+      person.age = calculate_age(person.birthdate)
       return person
     }
   })
@@ -148,6 +152,31 @@ async function show_mexicans() {
   }
 }
 
+function calculate_age (date) {
+  const today = new Date()
+
+  const current_year = parseInt(today.getFullYear())
+  const current_month = parseInt(today.getMonth()) + 1
+  const current_day = parseInt(today.getDate())
+
+  const birthdate = date
+
+  const birth_year = parseInt(String(birthdate).substring(0, 4))
+  const birth_month = parseInt(String(birthdate).substring(5, 7))
+  const birth_day = parseInt(String(birthdate).substring(8, 10))
+
+  let age = current_year - birth_year
+  if (current_month < birth_month) {
+    age --
+  } else if (current_month === birth_month) {
+    if (current_day < birth_day) {
+      age --
+    }
+  }
+  return age
+}
+
+
 let table_created = false
 
 function make_table() {
@@ -157,7 +186,7 @@ function make_table() {
     body.appendChild(table)
     const t_head = document.createElement('thead')
     table.appendChild(t_head)
-    t_head_titles = ['ID', 'Nombre', 'Fecha de nacimiento', 'Ciudad', 'País']
+    t_head_titles = ['ID', 'Nombre', 'Fecha de nacimiento', 'Edad', 'Ciudad', 'País']
     t_head_titles.forEach( function (title) {
       const th = document.createElement('th')
       th.textContent = title
@@ -173,19 +202,23 @@ function make_table() {
 
 function show_in_table(info) {
   const table_body = document.querySelector('#table-body')
-  const {name, birthdate, city, country} = info
+  const {id, name, birthdate, age, city, country} = info
   const table_row = document.createElement('tr')
   table_row.classList.add('table-row')
   table_body.appendChild(table_row)
+  const t_id = document.createElement('td')
+  t_id.textContent = id
   const t_name = document.createElement('td')
   t_name.textContent = name
   const t_birthdate = document.createElement('td')
   t_birthdate.textContent = birthdate
+  const t_age = document.createElement('td')
+  t_age.textContent = age
   const t_city = document.createElement('td')
   t_city.textContent = city
   const t_country = document.createElement('td')
   t_country.textContent = country
-  table_row.append(t_name, t_birthdate, t_city, t_country)
+  table_row.append(t_id, t_name, t_birthdate, t_age, t_city, t_country)
 }
 
 function clean_table () {
