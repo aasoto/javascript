@@ -1,1 +1,21 @@
 
+# GET / HTTP/1.1
+# host: localhost:3000
+
+GET /api HTTP/1.1
+host: localhost:3000
+
+# POST / HTTP/1.1
+# host: localhost:3000
+# Content-Type: application/json
+
+# {
+#   "name": "Andrés Soto",
+#   "age": "24"
+# }
+
+# GET / HTTP/1.1
+# host: www.google.com
+
+# GET / HTTP/1.1
+# host: www.theverge.com
