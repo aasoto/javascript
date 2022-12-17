@@ -1,3 +1,4 @@
+import { addEvent } from "./actions.js";
 const calculadora = document.querySelector('#calculadora')
 
 const centralNumbers = ['3', '2', '1', '6', '5', '4', '9', '8', '7']
@@ -48,6 +49,7 @@ export function makeKeyboard() {
     button.id = 'button'
     button.name = element
     button.textContent = element
+    addEvent(button)
     buttonSpace.appendChild(button)
 
   });
@@ -72,12 +74,13 @@ export function makeKeyboard() {
     buttonSpaceNumber.classList.add('buttonSpace')
     centralNumbersContent.prepend(buttonSpaceNumber)
 
-    const buttonNumber = document.createElement('button')
-    buttonNumber.classList.add('button')
-    buttonNumber.id = 'button'
-    buttonNumber.name = element
-    buttonNumber.textContent = element
-    buttonSpaceNumber.appendChild(buttonNumber)
+    const button = document.createElement('button')
+    button.classList.add('button')
+    button.id = 'button'
+    button.name = element
+    button.textContent = element
+    addEvent(button)
+    buttonSpaceNumber.appendChild(button)
   });
 
   const centralOperatorsSpace = document.createElement('div')
@@ -98,6 +101,7 @@ export function makeKeyboard() {
     button.id = 'button'
     button.name = element
     button.textContent = element
+    addEvent(button)
     buttonRightPannel.appendChild(button)
   });
 
@@ -118,6 +122,7 @@ export function makeKeyboard() {
     button.id = 'button'
     button.name = element
     button.textContent = element
+    addEvent(button)
     buttonSpace.appendChild(button)
 
   });
