@@ -1,3 +1,7 @@
+/**
+ * COMANDO PARA CORRER SERVIDOR EN NODE.JS
+ * node server
+ */
 const contenedor = document.querySelector('#resultado');
 /* const xhr = new XMLHttpRequest();
 
@@ -19,15 +23,13 @@ function get(url, method, successCallback, progressCallback, errorCallback){
     const xhr = new XMLHttpRequest();
 
     xhr.addEventListener('load', e => {
-        /* if(xhr.status == 200){
+        if(xhr.status == 200){
             contenedor.innerHTML = xhr.response;
-        } */
+        }
         successCallback(e.target.response);
     });
 
     xhr.addEventListener('progress', e => {
-        /* console.log('cargando...');
-        contenedor.textContent = 'Cargando...'; */
         progressCallback(e);
     });
 
@@ -39,18 +41,15 @@ function get(url, method, successCallback, progressCallback, errorCallback){
     xhr.send();
 }
 
-get('http://localhost:3000', 'GET', res => {
+get('http://localhost:3000/api', 'GET', res => {
     console.log(res);
 }, progress => {
-
+    console.log('cargando...')
 }, error =>{
-
+    console.error(error.response)
 });
 
-
 const xhr = new XMLHttpRequest();
-
-
 
 xhr.addEventListener('load', e => {
     if(xhr.status == 200){
@@ -65,7 +64,6 @@ xhr.addEventListener('progress', e => {
 });
 
 xhr.open('POST', 'http://localhost:3000/');
-//xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 xhr.setRequestHeader('Content-Type', 'application/json');
 const data = {"nombre": "Marcos", "edad": 28};
 xhr.send(JSON.stringify(data)); 
@@ -74,15 +72,10 @@ function post(url, options, successCallback, progressCallback, errorCallback){
     const xhr = new XMLHttpRequest();
 
     xhr.addEventListener('load', e => {
-        /* if(xhr.status == 200){
-            contenedor.innerHTML = xhr.response;
-        } */
         successCallback(e.target.response);
     });
 
     xhr.addEventListener('progress', e => {
-        /* console.log('cargando...');
-        contenedor.textContent = 'Cargando...'; */
         progressCallback(e);
     });
 
@@ -107,4 +100,4 @@ post('http://localhost:3000', {
 
 }, error => {
 
-});
+}); 
