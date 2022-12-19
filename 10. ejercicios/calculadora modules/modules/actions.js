@@ -61,6 +61,7 @@ function isAFloatNumber (float) {
 function isAnOperation(op) {
   operation = op
   console.log(operation)
+  // resolve()
   saveInMemory(displayNumber)
 }
 
