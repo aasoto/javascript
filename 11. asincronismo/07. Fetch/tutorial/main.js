@@ -1,84 +1,5 @@
-const rovers = [
-  {
-    name: 'Curiosity',
-    value: 'curiosity'
-  },
-  {
-    name: 'Opportunity',
-    value: 'opportunity'
-  },
-  {
-    name: 'Spirit',
-    value: 'spirit'
-  }
-]
-
-const cameras = [
-  {
-    name: 'Front Hazard Avoidance Camera',
-    value: 'fhaz',
-    curiosity: true,
-    opportunity: true,
-    spirit: true
-  },
-  {
-    name: 'Rear Hazard Avoidance Camera',
-    value: 'rhaz',
-    curiosity: true,
-    opportunity: true,
-    spirit: true
-  },
-  {
-    name: 'Mast Camera',
-    value: 'mast',
-    curiosity: true,
-    opportunity: false,
-    spirit: false
-  },
-  {
-    name: 'Chemistry and Camera Complex',
-    value: 'chemcam',
-    curiosity: true,
-    opportunity: false,
-    spirit: false
-  },
-  {
-    name: 'Mars Hand Lens Imager',
-    value: 'mahli',
-    curiosity: true,
-    opportunity: false,
-    spirit: false
-  },
-  {
-    name: 'Mars Descent Imager',
-    value: 'mardi',
-    curiosity: true,
-    opportunity: false,
-    spirit: false
-  },
-  {
-    name: 'Navigation Camera',
-    value: 'navcam',
-    curiosity: true,
-    opportunity: true,
-    spirit: true
-  },
-  {
-    name: 'Panoramic Camera',
-    value: 'pancam',
-    curiosity: false,
-    opportunity: true,
-    spirit: true
-  },
-  {
-    name: 'Miniature Thermal Emission Spectrometer (Mini-TES)',
-    value: 'minites',
-    curiosity: false,
-    opportunity: true,
-    spirit: true
-  },
-]
-
+import { rovers, cameras } from "./data.js";
+import { getImages } from "./conexion.js";
 
 const get = async () => {
   try {
@@ -111,10 +32,15 @@ const filterCameras = (rover) => {
       }
     }
   })
-  console.log(filteredCameras)
+  return filteredCameras
 }
 
 const roverSelect = document.querySelector('#rover')
+const solInput = document.querySelector('#sol')
+let currentRover = null
+let currentCamera = null
+let currentSol = null
+
 rovers.forEach(element => {
   const {name, value} = element
   const option = document.createElement('option')
@@ -124,19 +50,59 @@ rovers.forEach(element => {
 });
 
 roverSelect.addEventListener('change', e => {
-  let option = e.currentTarget.selectedOptions[0].value
-  filterCameras(option)
+  currentRover = e.currentTarget.selectedOptions[0].value
+  showInfoRover(currentRover)
+  const filteredCamaras = filterCameras(currentRover)
+  showCameras(filteredCamaras)
+  getImages(currentRover)
 })
 
+solInput.addEventListener('mouseout', e =>{
+  currentSol = solInput.value
+  getImages(currentRover, currentCamera, currentSol)
+})
 
+const showCameras = (filteredCameras) => {
+  const cameraSelect = document.getElementById('camera')
+  // Eliminar elementos existentes
+  while (cameraSelect.firstChild) {
+    cameraSelect.removeChild(cameraSelect.firstChild);
+  }
+  // Agregar nuevos elementos
+  filteredCameras.forEach(element => {
+    const {name, value} = element
+    const option = document.createElement('option')
+    option.value = value
+    option.textContent = name
+    cameraSelect.appendChild(option)
+  });
 
-const cameraSelect = document.querySelector('#camera')
-cameras.forEach(element => {
-  const {name, value} = element
-  const option = document.createElement('option')
-  option.value = value
-  option.textContent = name
-  cameraSelect.appendChild(option)
-});
+  cameraSelect.addEventListener('change', e => {
+    currentCamera = e.currentTarget.selectedOptions[0].value
+    getImages(currentRover, currentCamera)
+  })
+}
 
-const resultado = document.querySelector('#resultado')
+const showInfoRover = (rover) => {
+  const infoSpace = document.querySelector('#rover-information')
+
+  while (infoSpace.firstChild) {
+    infoSpace.removeChild(infoSpace.firstChild);
+  }
+
+  rovers.forEach(element => {
+    const {name, value, image, info} = element
+    if (rover == value) {
+      const foto = document.createElement('img')
+      foto.src = image
+      foto.classList.add('image-rover')
+      const title = document.createElement('h2')
+      title.textContent = name
+      title.classList.add('title-rover')
+      const paragraph = document.createElement('p')
+      paragraph.textContent = info
+      paragraph.classList.add('paragraph-rover')
+      infoSpace.append(foto, title, paragraph)
+    }
+  });
+}

@@ -23,6 +23,20 @@
                 content-visibility: auto;
             }
         }
+        @layer components {
+            .image-rover {
+                @apply h-40
+            }
+            .title-rover {
+                @apply text-2xl font-bold text-gray-800 text-center
+            }
+            .paragraph-rover {
+                @apply pl-5 text-justify text-gray-600
+            }
+            .grid-results {
+                @apply grid grid-cols-3 gap-5
+            }
+        }
     </style>
 </head>
 <body>
@@ -57,11 +71,16 @@
             </div>
         </nav>
     </section>
-
-    <div id="resultado">
-
+    <div class="grid grid-cols-3 gap-5 mt-24">
+        <div class="col-span-1 flex flex-col gap-5 justify-start items-center" id="rover-information">
+        </div>
+        <div class="col-span-2">
+            <div id="resultado">
+        
+            </div>
+        </div>
     </div>
 
-    <script src="main.js"></script>
+    <script type="module" src="main.js"></script>
 </body>
 </html>
