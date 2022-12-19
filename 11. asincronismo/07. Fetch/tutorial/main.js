@@ -37,9 +37,11 @@ const filterCameras = (rover) => {
 
 const roverSelect = document.querySelector('#rover')
 const solInput = document.querySelector('#sol')
+const dateInput = document.querySelector('#earth_date')
 let currentRover = null
 let currentCamera = null
 let currentSol = null
+let currentDate = null
 
 rovers.forEach(element => {
   const {name, value} = element
@@ -58,8 +60,27 @@ roverSelect.addEventListener('change', e => {
 })
 
 solInput.addEventListener('mouseout', e =>{
+  currentDate = null
   currentSol = solInput.value
   getImages(currentRover, currentCamera, currentSol)
+})
+
+dateInput.addEventListener('mouseout', e =>{
+  currentSol = null
+  currentDate = dateInput.value
+  
+  // arreglar formato de fecha
+  let secondIndex = 7
+  if (currentDate[5] == 0) {
+    currentDate = currentDate.slice(0, 6-1)+currentDate.slice(6, currentDate.length)
+  } else {
+    secondIndex ++
+  }
+  if (currentDate[secondIndex] == 0) {
+    currentDate = currentDate.slice(0, (secondIndex+1)-1)+currentDate.slice((secondIndex+1), currentDate.length)
+  }
+
+  getImages(currentRover, currentCamera, currentSol, currentDate)
 })
 
 const showCameras = (filteredCameras) => {
