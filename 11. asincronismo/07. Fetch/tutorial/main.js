@@ -1,17 +1,6 @@
 import { rovers, cameras } from "./data.js";
 import { getImages } from "./conexion.js";
 
-const get = async () => {
-  try {
-    const resultHttp  = await fetch('https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=1000&page=2&api_key=Xaho23sPLQ76eX6EQbkzHQRPtvD6vghAh2BdHmsO')
-    const data        = await resultHttp.json()
-    console.log(data)
-  } catch (error) {
-    throw new Error(error)
-  }
-}
-
-get()
 
 const filterCameras = (rover) => {
   const filteredCameras = cameras.filter( element => {
@@ -62,13 +51,22 @@ roverSelect.addEventListener('change', e => {
 solInput.addEventListener('mouseout', e =>{
   currentDate = null
   currentSol = solInput.value
+  const solSpan = document.querySelector('#sol-value')
+  solSpan.textContent = ': '+currentSol
+  const dateSpan = document.querySelector('#earth-date-value')
+  dateSpan.textContent = ''
+  
   getImages(currentRover, currentCamera, currentSol)
 })
 
 dateInput.addEventListener('mouseout', e =>{
   currentSol = null
   currentDate = dateInput.value
-  
+  const dateSpan = document.querySelector('#earth-date-value')
+  dateSpan.textContent = ': '+currentDate
+  const solSpan = document.querySelector('#sol-value')
+  solSpan.textContent = ''
+
   // arreglar formato de fecha
   let secondIndex = 7
   if (currentDate[5] == 0) {

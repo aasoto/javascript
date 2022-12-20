@@ -54,14 +54,20 @@
                         <option value="">Camera</option>
                     </select>
                     <div class="group relative">
-                        <label for="sol">Sol</label>
+                        <div class="flex justify-center items-center">
+                            <label for="sol">Sol</label>
+                            <span class="font-semibold" id="sol-value"></span>
+                        </div>
                         <div class="absolute">
                             <div class="hidden group-hover:block h-5"></div>
                             <input type="number" id="sol" name="sol" class="hidden group-hover:block border border-blue-900 rounded-none -translate-x-16">
                         </div>
                     </div>
                     <div class="group relative">
-                        <label for="earth_date">Earth date</label>
+                        <div class="flex justify-center items-center">
+                            <label for="earth_date">Earth date</label>
+                            <span class="font-semibold" id="earth-date-value"></span>
+                        </div>
                         <div class="absolute">
                             <div class="hidden group-hover:block h-5"></div>
                             <input type="date" id="earth_date" name="earth_date" class="hidden group-hover:block border border-blue-900 rounded-none -translate-x-16">

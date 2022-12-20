@@ -18,7 +18,7 @@ export function getImages (rover = null, camera = null, sol = null, date = null)
 
 const hasRover = async (rover) => {
   let apiURL = `https://api.nasa.gov/mars-photos/api/v1/rovers/${rover}/photos?sol=1000&api_key=Xaho23sPLQ76eX6EQbkzHQRPtvD6vghAh2BdHmsO`
-  console.log(apiURL)
+  
   try {
     const resultHttp  = await fetch(apiURL)
     const data        = await resultHttp.json()
@@ -31,7 +31,7 @@ const hasRover = async (rover) => {
 
 const hasRoverCamera = async (rover, camera) => {
   let apiURL = `https://api.nasa.gov/mars-photos/api/v1/rovers/${rover}/photos?sol=1000&camera=${camera}&api_key=Xaho23sPLQ76eX6EQbkzHQRPtvD6vghAh2BdHmsO`
-  console.log(apiURL)
+  
   try {
     const resultHttp  = await fetch(apiURL)
     const data        = await resultHttp.json()
@@ -44,7 +44,7 @@ const hasRoverCamera = async (rover, camera) => {
 
 const hasRoverCameraSol = async (rover, camera, sol) => {
   let apiURL = `https://api.nasa.gov/mars-photos/api/v1/rovers/${rover}/photos?sol=${sol}&camera=${camera}&api_key=Xaho23sPLQ76eX6EQbkzHQRPtvD6vghAh2BdHmsO`
-  console.log(apiURL)
+  
   try {
     const resultHttp  = await fetch(apiURL)
     const data        = await resultHttp.json()
@@ -57,7 +57,7 @@ const hasRoverCameraSol = async (rover, camera, sol) => {
 
 const hasRoverDate = async (rover, date) => {
   let apiURL = `https://api.nasa.gov/mars-photos/api/v1/rovers/${rover}/photos?earth_date=${date}&api_key=Xaho23sPLQ76eX6EQbkzHQRPtvD6vghAh2BdHmsO`
-  console.log(apiURL)
+  
   try {
     const resultHttp  = await fetch(apiURL)
     const data        = await resultHttp.json()
@@ -70,7 +70,7 @@ const hasRoverDate = async (rover, date) => {
 
 const hasRoverCameraDate = async (rover, camera, date) => {
   let apiURL = `https://api.nasa.gov/mars-photos/api/v1/rovers/${rover}/photos?earth_date=${date}&camera=${camera}&api_key=Xaho23sPLQ76eX6EQbkzHQRPtvD6vghAh2BdHmsO`
-  console.log(apiURL)
+  
   try {
     const resultHttp  = await fetch(apiURL)
     const data        = await resultHttp.json()
