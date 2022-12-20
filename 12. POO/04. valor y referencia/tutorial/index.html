@@ -24,10 +24,69 @@
                 content-visibility: auto;
             }
         }
+        @layer components {
+            .hamburger div:first-child{
+                @apply rotate-45 translate-y-[0.330rem]
+            }
+            .hamburger div:last-child{
+                @apply -rotate-45 -translate-y-[0.330rem]
+            }
+        }
     </style>
 </head>
 
 <body>
+    <!-- Navigation -->
+    <section id="navigation">
+        <nav class="w-full px-10 py-3 bg-black">
+            <div class="grid grid-cols-3 md:grid-cols-6 gap-5">
+                <div class="col-span-1 border-r border-white">
+                    <h1 class="text-white font-medium text-xl md:text-3xl text-center">
+                        OMDb <span class="font-semibold">API</span>
+                    </h1>
+                </div>
+                <div id="space-options" class="col-span-2 md:col-span-5 flex justify-end items-center">
+                    <input type="checkbox" name="hamburger" id="hamburger" class="peer" hidden>
+                    <label for="hamburger" class="peer-checked:hamburger block z-20 cursor-pointer md:hidden transition mr- mt-2 rounded">
+                        <div class="h-0.5 w-6 bg-white transition"></div>
+                        <div class="mt-2 h-0.5 w-6 bg-white transition"></div>
+                    </label>
+                    <div class="w-full h-10 mt-[51px] md:mt-0 bg-black flex justify-start md:justify-end items-center transition fixed inset-0 translate-y-[-200%] md:translate-y-0 peer-checked:translate-y-0 md:w-auto md:static md:translate-x-0 md:flex-row">
+                        <div class="relative flex gap-8 justify-end items-center">
+                            <svg class="w-6 h-6 text-white" id="lens" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+                            </svg>
+                            <div class="absolute translate-x-60 md:translate-x-0">
+                                <div class="hidden" id="options-lens">
+                                    <div class="translate-y-44 flex flex-col justify-center items-center gap-5 p-8 bg-white border border-black">
+                                        <input type="text" id="year" name="year" class="bg-gray-100 focus:bg-white placeholder:text-gray-600 p-3 w-60 border border-b-black border-x-transparent border-t-transparent" placeholder="Title">
+                                        <input type="number" id="year" name="year" class="bg-gray-100 focus:bg-white placeholder:text-gray-600 p-3 w-60 border border-b-black border-x-transparent border-t-transparent" placeholder="Year">
+                                        <select name="plot" id="plot" class="bg-gray-100 focus:bg-white placeholder:text-gray-600 p-3 w-60 border border-b-black border-x-transparent border-t-transparent">
+                                            <option value="short">Short</option>
+                                            <option value="full">Full</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>                                                          
+                            <svg class="w-6 h-6 text-white" id="blocks" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6A2.25 2.25 0 016 3.75h2.25A2.25 2.25 0 0110.5 6v2.25a2.25 2.25 0 01-2.25 2.25H6a2.25 2.25 0 01-2.25-2.25V6zM3.75 15.75A2.25 2.25 0 016 13.5h2.25a2.25 2.25 0 012.25 2.25V18a2.25 2.25 0 01-2.25 2.25H6A2.25 2.25 0 013.75 18v-2.25zM13.5 6a2.25 2.25 0 012.25-2.25H18A2.25 2.25 0 0120.25 6v2.25A2.25 2.25 0 0118 10.5h-2.25a2.25 2.25 0 01-2.25-2.25V6zM13.5 15.75a2.25 2.25 0 012.25-2.25H18a2.25 2.25 0 012.25 2.25V18A2.25 2.25 0 0118 20.25h-2.25A2.25 2.25 0 0113.5 18v-2.25z" />
+                            </svg>
+                            <div class="absolute translate-x-60 md:translate-x-0">
+                                <div class="hidden" id="options-blocks">
+                                    <div class="translate-y-24 flex flex-col justify-center items-center gap-5 p-8 bg-white border border-black">
+                                        <select name="i" id="i" class="bg-gray-100 focus:bg-white placeholder:text-gray-600 p-3 w-60 border border-b-black border-x-transparent border-t-transparent">
+                                            <option value="title">Title</option>
+                                            <option value="imdbid">IMDb Id</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>  
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </section>
     <script src="persona.js"></script>
     <script src="main.js"></script>
 </body>
