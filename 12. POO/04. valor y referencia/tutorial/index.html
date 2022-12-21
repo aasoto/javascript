@@ -23,6 +23,14 @@
             .content-auto {
                 content-visibility: auto;
             }
+            .tag-space {
+                flex-wrap: wrap;
+                grid-column: span 1 / span 1;
+                display: flex;
+                align-items: flex-start;
+                justify-content: flex-start;
+                gap: 0.5rem;
+            }
         }
         @layer components {
             .hamburger div:first-child{
@@ -30,6 +38,18 @@
             }
             .hamburger div:last-child{
                 @apply -rotate-45 -translate-y-[0.330rem]
+            }
+            .title {
+                @apply text-3xl font-bold
+            }
+            .grid-main-info {
+                @apply col-span-3 grid grid-cols-3 gap-5
+            }
+            .year-rated-space {
+                @apply col-span-1 flex flex-wrap justify-start items-start
+            }
+            .tag-primary {
+                @apply p-2 bg-blue-300 hover:bg-blue-400 text-blue-800 hover:text-blue-900 text-sm whitespace-nowrap w-fit cursor-pointer
             }
         }
     </style>
@@ -62,9 +82,15 @@
                                         <input type="text" id="title" name="title" class="bg-gray-100 focus:bg-white placeholder:text-gray-600 p-3 w-60 border border-b-black border-x-transparent border-t-transparent" placeholder="Title">
                                         <input type="number" id="year" name="year" class="bg-gray-100 focus:bg-white placeholder:text-gray-600 p-3 w-60 border border-b-black border-x-transparent border-t-transparent" placeholder="Year">
                                         <select name="plot" id="plot" class="bg-gray-100 focus:bg-white placeholder:text-gray-600 p-3 w-60 border border-b-black border-x-transparent border-t-transparent">
-                                            <option value="short">Short</option>
                                             <option value="full">Full</option>
+                                            <option value="short">Short</option>
                                         </select>
+                                        <div class="w-full h-2" id="border"></div>
+                                        <div class="w-full flex justify-end items-center">
+                                            <button id="search" class="bg-blue-600 hover:bg-blue-700 w-32 p-3 text-left text-white">
+                                                Buscar
+                                            </button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>                                                          
@@ -87,8 +113,13 @@
             </div>
         </nav>
     </section>
+    <div class="w-full p-5">
+        <div id="details-movie" class="details-movie grid grid-cols-4 gap-5">
+
+        </div>
+    </div>
     <script src="movie.js"></script>
-    <script src="main.js"></script>
+    <script type="module" src="main.js"></script>
 </body>
 
 </html>

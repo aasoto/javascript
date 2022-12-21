@@ -4,6 +4,8 @@ class Movie {
   #year
   #plot
 
+  #info
+
   constructor(title = null, year = null, plot = null) {
     this.#title = title
     this.#year = year
@@ -18,16 +20,23 @@ class Movie {
 
   byTitleYearPlot() {
     fetch(`http://www.omdbapi.com/?t=${this.#title}&y=${this.#year}&plot=${this.#plot}&apikey=7aafd72d`)
-    .then(response => {
+    .then( async response => {
       return response.json()
     })
     .then(result => {
-      this.printData(result)
+      this.assignment(result)
     });
   }
 
-  printData(data) {
-    console.log('show: ', data)
-    return data
+  assignment(data) {
+    this.#info = data
+  }
+
+  set info(value){
+    this.#info = value;
+  }
+
+  get info(){
+      return this.#info;
   }
 }
