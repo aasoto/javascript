@@ -37,8 +37,8 @@ class Serie extends Produccion {
     clausura = clausura / totalClausura
     
     const rating = {
-      apertura: apertura,
-      clausura: clausura
+      apertura: parseFloat(apertura.toFixed(2)),
+      clausura: parseFloat(clausura.toFixed(2))
     }
 
     return rating

@@ -99,5 +99,5 @@ const {nombre, director, actores, escritores, productora, criticas, canal, ratin
 
 const produccion = new Serie(nombre, director, actores, escritores, productora, criticas, canal, rating, temporadas, episodios, emision)
 
-console.log(produccion.promedioCriticas())
+console.log(parseFloat(produccion.promedioCriticas().toFixed(2)))
 console.log(produccion.promedioRating())
