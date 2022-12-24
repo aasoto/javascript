@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Webpack</title>
+  <!-- <link href="../dist/output.css" rel="stylesheet"> -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            clifford: '#da373d',
+          }
+        }
+      }
+    }
+  </script>
+  <style type="text/tailwindcss">
+    @layer utilities {
+      .content-auto {
+        content-visibility: auto;
+      }
+    }
+    @layer components {
+      .card {
+        @apply rounded-lg shadow-md w-1/2
+      }
+      .card-header-primary {
+        @apply rounded-t-lg bg-blue-500 px-10 py-3 text-white font-bold
+      }
+      .card-body {
+        @apply px-10 py-3
+      }
+      .card-footer {
+        @apply rounded-b-lg bg-gray-100 flex justify-end items-center gap-3 px-10 py-3
+      }
+      .btn-secondary {
+        @apply rounded-md px-4 py-2 bg-gray-300 hover:bg-gray-400 shadow-sm font-semibold hover:scale-110 transition duration-200
+      }
+      .btn-primary {
+        @apply rounded-md px-4 py-2 bg-blue-500 hover:bg-blue-600 shadow-sm text-white font-semibold hover:scale-110 transition duration-200
+      }
+      .form-grid {
+        @apply grid grid-cols-2 gap-5
+      }
+      .form-grid div{
+        @apply col-span-1
+      }
+      .form-grid input {
+        @apply w-full border-2 border-gray-400 rounded-md px-5 py-2 placeholder:text-gray-400
+      }
+      .form-grid select {
+        @apply w-full border-2 border-gray-400 rounded-md px-5 py-2 placeholder:text-gray-400
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="flex justify-center items-center h-screen">
+    <div class="card">
+      <div class="card-header-primary">
+        Agregar empleado
+      </div>
+      <div class="card-body">
+        <div class="form-grid">
+          <div>
+            <input type="text" id="nombre" name="nombre" placeholder="Nombres y apellidos">
+          </div>
+          <div>
+            <input type="date" name="fecha-nacimiento" id="fecha-nacimiento" title="Fecha de nacimiento">
+          </div>
+          <div>
+            <select name="genero" id="genero"></select>
+          </div>
+          <div>
+            <select name="cargo" id="cargo"></select>
+          </div>
+        </div>
+      </div>
+      <div class="card-footer">
+        <button class="btn-secondary">Limpiar</button>
+        <button class="btn-primary">Guardar</button>
+      </div>
+    </div>
+  </div>
+  <script type="module" src="../src/main.js"></script>
+</body>
+</html>
