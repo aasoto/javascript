@@ -1,0 +1,79 @@
+  BABEL
+/*--------------- INSTALACIÓN DE BABEL POR MEDIO DE NPM: -------------------------*/
+Babel sirve para general código javascript compatible con todas las versiones de navegadores web
+ya que el código de javascript moderno contiene funcionalidades que no están presentes en navegadores antiguos comando
+Internet Explorer
+
+//inicialización del package.json
+npm init
+//descarga de todos los módulos de babel através de NPM
+npm install @babel/core @babel/cli @babel/preset-env -D
+//crear archivo llamado babel.config.json y colocar la siguiente información:
+{
+  "presets": [
+    "@babel/env"
+  ]
+}
+//en el archivo de package.json configurar nuevo comando en la sección de scripts para correr o compilar babel
+  "scripts": {
+    "babel": "npx babel src --out-dir public/"
+  },
+// este comando se ejecuta por medio del siguiente comando o ejecutar el comando normal
+npm run babel
+
+  WEBPACK
+!!!!!!!!!!!!! UTILIZAR WEBPACK CUANDO SE ESTÉ EN LAS ÚLTIMAS FASES DE DESARROLLO !!!!!!!!!!!!!!!
+Webpack es un modularizador, este permite empaquetar diferentes archivos javascript y css
+//configurar package.json
+npm init
+//instalar Webpack como dependencia de desarrollo
+npm i webpack webpack-cli -D
+//crear archivo de configiración de webpack llamado webpack.config.js y poner el siguiente código
+
+const path = require('path');
+
+module.exports = {
+  entry: './src/main.js'
+  output: {
+    path: path.resolve(__dirname, 'public'),
+    filename: 'bundle.js'
+  }
+};
+
+//para empequetar los archivos correr el siguiente comando:
+npx webpack
+
+  LOADERS DE WEBPACK
+Usando Babel con Webpack
+//primero se instala webpack en el proyecto y se configura todo, es decir hacer todos los pasos anterioress
+//instalar las librerías de Babel no se necesita instalar el babel/cli poruqe eso es para compilarlo desde la linea de comandos
+npm i -D babel-loader @babel/core @babel/preset-env
+//editar el archivo de webpack.config.js
+
+const path = require('path');
+
+module.exports = {
+  entry: './src/main.js'
+  output: {
+    path: path.resolve(__dirname, 'public'),
+    filename: 'bundle.js'
+  },
+  mode: 'development',
+  module:{
+    rules:[
+      {
+        test: /\.m?js$/,
+        exclude: /(node_modules | bower_components)/,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: ['@babel/preset-env']
+          }
+        }
+      }
+    ]
+  }
+};
+
+//por último se ejecuta webpack
+npx webpack
