@@ -1,4 +1,7 @@
-
+/**
+ * PARA INSTALAR BABEL POR MEDIO DE NPM:
+ * npm install @babel/core @babel/cli @babel/preset-env -D
+ */
 const alumno = {
     nombre: 'Juan',
     domicilio: {
