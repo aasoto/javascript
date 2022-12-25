@@ -1,15 +1,41 @@
-class Persona {
+export class Persona {
 
   #nombre
   #fechaNacimiento
+  #generos
   #genero
+  #cargos
   #cargo
 
-  constructor (nombre, fechaNacimineto, genero, cargo) {
+  constructor (nombre, fechaNacimiento, generos, genero, cargos, cargo) {
     this.#nombre = nombre
-    this.#fechaNacimiento = fechaNacimineto
+    this.#fechaNacimiento = fechaNacimiento
+    this.#generos = generos
     this.#genero = genero
+    this.#cargos = cargos
     this.#cargo = cargo
+  }
+
+  nombreGenero () {
+    let nombre = undefined
+    this.#generos.forEach(element => {
+      if (element.value == this.#genero) {
+        nombre = element.text
+      }
+    });
+
+    return nombre
+  }
+
+  nombreCargo () {
+    let nombre = undefined
+    this.#cargos.forEach(element => {
+      if (element.value == this.#cargo) {
+        nombre = element.text
+      }
+    });
+    
+    return nombre
   }
 
   calcularEdad () {

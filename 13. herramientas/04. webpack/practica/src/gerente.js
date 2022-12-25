@@ -1,4 +1,4 @@
-
+import { Persona } from "./persona.js";
 export class Gerente extends Persona {
 
   #estudios
@@ -6,9 +6,10 @@ export class Gerente extends Persona {
   #horario
   #smlv
   #numSmlv
+  #gerenteCampos = ['Nombres', 'Cargo', 'Edad', 'Proyectos', 'Horarios']
 
-  constructor (nombre, fechaNacimineto, genero, cargo, estudios, proyectos, horario, smlv, numSmlv) {
-    super (nombre, fechaNacimineto, genero, cargo)
+  constructor (nombre, fechaNacimineto, generos, genero, cargos, cargo, estudios, proyectos, horario, smlv, numSmlv) {
+    super (nombre, fechaNacimineto, generos, genero, cargos, cargo)
     this.#estudios = estudios
     this.#proyectos = proyectos
     this.#horario = horario
@@ -18,6 +19,31 @@ export class Gerente extends Persona {
 
   calcularSalario () {
     return this.#smlv * this.#numSmlv
+  }
+
+  makeTablaGerentes () {
+      const cardBody = document.querySelector('#card-body-listado')
+  
+      const tabla = document.createElement('table')
+      tabla.classList.add('w-full')
+      cardBody.appendChild(tabla)
+  
+      const headerTabla = document.createElement('thead')
+      headerTabla.classList.add('bg-gray-300')
+      tabla.appendChild(headerTabla)
+  
+      this.#gerenteCampos.forEach( element => {
+        const theadTitulos = document.createElement('th')
+        theadTitulos.classList.add('py-2')
+        theadTitulos.classList.add('px-5')
+        theadTitulos.textContent = element
+        headerTabla.appendChild(theadTitulos)
+      })
+  
+      const tablaCuerpo = document.createElement('tbody')
+      tablaCuerpo.id = 'tabla-gerentes-cuerpo'
+      tabla.appendChild(tablaCuerpo)
+  
   }
 
   set estudios(value) {

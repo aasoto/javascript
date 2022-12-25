@@ -1,4 +1,4 @@
-const generos = [
+export const generos = [
   {
     value: '',
     text: 'Genero...'
@@ -17,7 +17,7 @@ const generos = [
   }
 ]
 
-const cargos = [
+export const cargos = [
   {
     value: '',
     text: 'Cargo...'

@@ -25,11 +25,17 @@
       }
     }
     @layer components {
-      .card {
+      .card-mid {
         @apply rounded-lg shadow-md w-1/2
+      }
+      .card-full {
+        @apply rounded-lg shadow-md w-10/12
       }
       .card-header-primary {
         @apply rounded-t-lg bg-blue-500 px-10 py-3 text-white font-bold
+      }
+      .card-header-success {
+        @apply rounded-t-lg bg-green-500 px-10 py-3 text-white font-bold
       }
       .card-body {
         @apply px-10 py-3
@@ -40,8 +46,8 @@
       .btn-secondary {
         @apply rounded-md px-4 py-2 bg-gray-300 hover:bg-gray-400 shadow-sm font-semibold hover:scale-110 transition duration-200
       }
-      .btn-primary {
-        @apply rounded-md px-4 py-2 bg-blue-500 hover:bg-blue-600 shadow-sm text-white font-semibold hover:scale-110 transition duration-200
+      .btn-success {
+        @apply rounded-md px-4 py-2 bg-green-500 hover:bg-green-600 shadow-sm text-white font-semibold hover:scale-110 transition duration-200
       }
       .form-grid {
         @apply grid grid-cols-2 gap-5
@@ -55,13 +61,16 @@
       .form-grid select {
         @apply w-full border-2 border-gray-400 rounded-md px-5 py-2 placeholder:text-gray-400
       }
+      .table-row {
+        @apply py-2 border border-transparent border-b-gray-400
+      }
     }
   </style>
 </head>
 <body>
-  <div class="flex justify-center items-center h-screen">
-    <div class="card">
-      <div class="card-header-primary">
+  <div id="info-container" class="flex flex-col justify-center items-center h-screen">
+    <div class="card-mid">
+      <div class="card-header-success">
         Agregar empleado
       </div>
       <div class="card-body">
@@ -85,7 +94,39 @@
       </div>
       <div class="card-footer">
         <button class="btn-secondary">Limpiar</button>
-        <button class="btn-primary">Guardar</button>
+        <button id="guardar" class="btn-success">Guardar</button>
+      </div>
+    </div>
+    <div class="card-full mt-10">
+      <div class="card-header-primary">
+        Listado de empleados
+      </div>
+      <div class="card-body">
+        <table>
+          <thead class="bg-gray-300">
+            <th class="py-2 px-5">Nombres</th>
+            <th class="py-2 px-5">Cargo</th>
+            <th class="py-2 px-5">Edad</th>
+            <th class="py-2 px-5">Proyectos</th>
+            <th class="py-2 px-5">Horarios</th>
+          </thead>
+          <tbody>
+            <tr class="py-2 border border-transparent border-b-gray-400">
+              <td class="px-5">Lorem ipsum dolor sit.</td>
+              <td class="px-5">Lorem.</td>
+              <td class="px-5">30</td>
+              <td class="px-5">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ad, consectetur.</td>
+              <td class="px-5">Lorem ipsum dolor sit.</td>
+            </tr>
+            <tr class="py-2 border border-transparent border-b-gray-400">
+              <td class="px-5">Lorem, ipsum dolor.</td>
+              <td class="px-5">Lorem.</td>
+              <td class="px-5">32</td>
+              <td class="px-5">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Laborum voluptatem consequatur recusandae.</td>
+              <td class="px-5">Lorem ipsum dolor sit.</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </div>
   </div>
