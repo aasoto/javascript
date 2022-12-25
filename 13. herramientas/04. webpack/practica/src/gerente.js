@@ -1,4 +1,5 @@
 import { Persona } from "./persona.js";
+
 export class Gerente extends Persona {
 
   #estudios
@@ -6,7 +7,7 @@ export class Gerente extends Persona {
   #horario
   #smlv
   #numSmlv
-  #gerenteCampos = ['Nombres', 'Cargo', 'Edad', 'Proyectos', 'Horarios']
+  #gerenteCampos = ['Nombres', 'Cargo', 'Edad', 'Estudios', 'Proyectos', 'Horarios']
 
   constructor (nombre, fechaNacimineto, generos, genero, cargos, cargo, estudios, proyectos, horario, smlv, numSmlv) {
     super (nombre, fechaNacimineto, generos, genero, cargos, cargo)

@@ -64,11 +64,14 @@
       .table-row {
         @apply py-2 border border-transparent border-b-gray-400
       }
+      ul {
+        @apply list-disc
+      }
     }
   </style>
 </head>
-<body>
-  <div id="info-container" class="flex flex-col justify-center items-center h-screen">
+<body class="p-5">
+  <div id="info-container" class="flex flex-col justify-center items-center">
     <div class="card-mid">
       <div class="card-header-success">
         Agregar empleado
@@ -95,38 +98,6 @@
       <div class="card-footer">
         <button class="btn-secondary">Limpiar</button>
         <button id="guardar" class="btn-success">Guardar</button>
-      </div>
-    </div>
-    <div class="card-full mt-10">
-      <div class="card-header-primary">
-        Listado de empleados
-      </div>
-      <div class="card-body">
-        <table>
-          <thead class="bg-gray-300">
-            <th class="py-2 px-5">Nombres</th>
-            <th class="py-2 px-5">Cargo</th>
-            <th class="py-2 px-5">Edad</th>
-            <th class="py-2 px-5">Proyectos</th>
-            <th class="py-2 px-5">Horarios</th>
-          </thead>
-          <tbody>
-            <tr class="py-2 border border-transparent border-b-gray-400">
-              <td class="px-5">Lorem ipsum dolor sit.</td>
-              <td class="px-5">Lorem.</td>
-              <td class="px-5">30</td>
-              <td class="px-5">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ad, consectetur.</td>
-              <td class="px-5">Lorem ipsum dolor sit.</td>
-            </tr>
-            <tr class="py-2 border border-transparent border-b-gray-400">
-              <td class="px-5">Lorem, ipsum dolor.</td>
-              <td class="px-5">Lorem.</td>
-              <td class="px-5">32</td>
-              <td class="px-5">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Laborum voluptatem consequatur recusandae.</td>
-              <td class="px-5">Lorem ipsum dolor sit.</td>
-            </tr>
-          </tbody>
-        </table>
       </div>
     </div>
   </div>

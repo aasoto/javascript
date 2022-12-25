@@ -7,6 +7,7 @@ const nombre = document.querySelector('#nombre')
 const fechaNacimiento = document.querySelector('#fecha-nacimiento')
 const genero = document.querySelector('#genero')
 const cargo = document.querySelector('#cargo')
+
 const btnGuardar = document.querySelector('#guardar')
 
 const informacionEspecifica = document.querySelector('#informacion-especifica')
@@ -26,6 +27,24 @@ cargo.addEventListener('change', event => {
   // edad = empleado.calcularEdad()
   // console.log(edad)
   if (event.target.value == 1) {
+    const estudios = document.createElement('div')
+    estudios.classList.add('col-span-1')
+    estudios.innerHTML = `
+    <div id="estudios" class="flex flex-col gap-2">
+      <div class="flex justify-between items-center">
+        <label for="" class="font-bold w-8/12">Estudios</label>
+        <button id="agregar-estudio" class="bg-green-500 w-3/12 rounded-md px-2 py-1 font-bold text-white">
+          <div class="flex justify-center items-center">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+            </svg>              
+          </div>
+        </button>
+      </div>
+      <input type="text" class="estudio" placeholder="Estudio">
+    </div>
+    `
+
     const proyecto = document.createElement('div')
     proyecto.classList.add('col-span-1')
     proyecto.innerHTML = `
@@ -51,8 +70,9 @@ cargo.addEventListener('change', event => {
       <input type="time" id="salida" title="Salida">
     </div>
     `
-    informacionEspecifica.append(proyecto, horario)
+    informacionEspecifica.append(estudios, proyecto, horario)
     
+    agregarEstudio()
     agregarProyecto()
   }
   if (event.target.value == 2) {
@@ -66,12 +86,26 @@ cargo.addEventListener('change', event => {
   }
 })
 
+const agregarEstudio = () => {
+  const btnAgregarEstudio = document.querySelector('#agregar-estudio')
+  const estudiosSpace = document.querySelector('#estudios')
+ 
+   btnAgregarEstudio.addEventListener('click', event => {
+     const nuevoEstudio = document.createElement('input')
+     nuevoEstudio.classList.add('estudio')
+     nuevoEstudio.type = 'text'
+     nuevoEstudio.placeholder = 'Estudio'
+     estudiosSpace.appendChild(nuevoEstudio)
+   })
+ }
+
 const agregarProyecto = () => {
  const btnAgregarProyecto = document.querySelector('#agregar-proyecto')
  const proyectosSpace = document.querySelector('#proyectos')
 
   btnAgregarProyecto.addEventListener('click', event => {
     const nuevoProyecto = document.createElement('input')
+    nuevoProyecto.classList.add('proyecto')
     nuevoProyecto.type = 'text'
     nuevoProyecto.placeholder = 'Proyecto'
     proyectosSpace.appendChild(nuevoProyecto)
@@ -85,7 +119,18 @@ btnGuardar.addEventListener('click', event => {
 
   const tipoEmpleado = document.querySelector('#cargo')
   if (tipoEmpleado.value == 1) {
-    empleado = new Gerente(nombre.value, fechaNacimiento.value, generos, generoValue, cargos, cargoValue)
+
+    empleado = new Gerente (
+      nombre.value, 
+      fechaNacimiento.value, 
+      generos, generoValue, 
+      cargos, 
+      cargoValue, 
+      seleccionarEstudios(), 
+      seleccionarProyectos(),
+      seleccionarHorario()
+    )
+
     console.log(empleado.calcularEdad())
     makeCardInformacion()
     if (!tablaGerentes) {
@@ -125,6 +170,37 @@ const makeCardInformacion = () => {
   }
 }
 
+const seleccionarEstudios = () => {
+  const estudios = document.querySelectorAll('.estudio')
+  let listadoEstudios = []
+  estudios.forEach(element => {
+    listadoEstudios.push(element.value)
+  });
+
+  return listadoEstudios
+}
+
+const seleccionarProyectos = () => {
+  const proyectos = document.querySelectorAll('.proyecto')
+  let listadoProyectos = []
+  proyectos.forEach(element => {
+    listadoProyectos.push(element.value)
+  });
+
+  return listadoProyectos
+}
+
+const seleccionarHorario = () => {
+  const entrada = document.querySelector('#entrada')
+  const salida = document.querySelector('#salida')
+  const horario = {
+    entrada: entrada.value,
+    salida: salida.value
+  }
+  
+  return horario
+}
+
 const agregarATablaGerentes = () => {
   const tabla = document.querySelector('#tabla-gerentes-cuerpo')
 
@@ -144,14 +220,43 @@ const agregarATablaGerentes = () => {
   colEdad.classList.add('px-5')
   colEdad.textContent = empleado.calcularEdad()
 
+  const colEstudios = document.createElement('td')
+  colEstudios.classList.add('px-5')
+  colEstudios.appendChild(lista(empleado.estudios))
+
   const colProyectos = document.createElement('td')
   colProyectos.classList.add('px-5')
-  colProyectos.textContent = empleado.proyectos
+  colProyectos.appendChild(lista(empleado.proyectos))
 
   const colHorarios = document.createElement('td')
   colHorarios.classList.add('px-5')
-  colHorarios.textContent = empleado.horario
+  colHorarios.appendChild(listadoHorario(empleado.horario))
 
-  filaTabla.append(colNombre, colCargo, colEdad, colProyectos, colHorarios)
+  filaTabla.append(colNombre, colCargo, colEdad, colEstudios, colProyectos, colHorarios)
+}
+
+const lista = (array) => {
+  const lista = document.createElement('ul')
+  array.forEach(element => {
+    const item = document.createElement('li')
+    item.textContent = element
+    lista.appendChild(item)
+  });
+  return lista
+}
+
+const listadoHorario = (object) => {
+  console.log(object)
+  const lista = document.createElement('ul')
+
+  const entrada = document.createElement('li')
+  entrada.textContent = `Entrada: ${object.entrada}`
+
+  const salida = document.createElement('li')
+  salida.textContent = `Salida: ${object.salida}`
+
+  lista.append(entrada, salida)
+
+  return lista
 }
 
