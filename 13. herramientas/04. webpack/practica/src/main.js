@@ -8,6 +8,7 @@ const fechaNacimiento = document.querySelector('#fecha-nacimiento')
 const genero = document.querySelector('#genero')
 const cargo = document.querySelector('#cargo')
 
+const btnLimpiar = document.querySelector('#limpiar')
 const btnGuardar = document.querySelector('#guardar')
 
 const informacionEspecifica = document.querySelector('#informacion-especifica')
@@ -27,6 +28,7 @@ cargo.addEventListener('change', event => {
   // edad = empleado.calcularEdad()
   // console.log(edad)
   if (event.target.value == 1) {
+    limpiarInformacionEspecifica()
     const estudios = document.createElement('div')
     estudios.classList.add('col-span-1')
     estudios.innerHTML = `
@@ -76,13 +78,13 @@ cargo.addEventListener('change', event => {
     agregarProyecto()
   }
   if (event.target.value == 2) {
-    
+    limpiarInformacionEspecifica()
   }
   if (event.target.value == 3) {
-    
+    limpiarInformacionEspecifica()
   }
   if (event.target.value == 4) {
-    
+    limpiarInformacionEspecifica()
   }
 })
 
@@ -112,6 +114,10 @@ const agregarProyecto = () => {
   })
 }
 
+btnLimpiar.addEventListener('click', event => {
+  limpiar()
+})
+
 btnGuardar.addEventListener('click', event => {
   // tomar valor seleccionado de un select
   const generoValue = document.getElementById('genero').value
@@ -128,7 +134,8 @@ btnGuardar.addEventListener('click', event => {
       cargoValue, 
       seleccionarEstudios(), 
       seleccionarProyectos(),
-      seleccionarHorario()
+      seleccionarHorario(),
+      limpiar()
     )
 
     console.log(empleado.calcularEdad())
@@ -260,3 +267,17 @@ const listadoHorario = (object) => {
   return lista
 }
 
+const limpiar = () => {
+  nombre.value = ''
+  fechaNacimiento.value = ''
+  genero.value = ''
+  cargo.value = ''
+
+  limpiarInformacionEspecifica()
+}
+
+const limpiarInformacionEspecifica = () => {
+  while (informacionEspecifica.firstChild) {
+    informacionEspecifica.removeChild(informacionEspecifica.firstChild);
+  }
+}
