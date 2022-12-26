@@ -102,9 +102,6 @@ export const seleccionarHorario = () => {
   return horario
 }
 
-
-
-
 export const agregarATablaGerentes = (empleado) => {
   const tabla = document.querySelector('#tabla-gerentes-cuerpo')
 

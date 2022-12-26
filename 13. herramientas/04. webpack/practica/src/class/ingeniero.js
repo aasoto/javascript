@@ -23,6 +23,7 @@ export class Ingeniero extends Persona {
 
     const tabla = document.createElement('table')
     tabla.classList.add('w-full')
+    tabla.classList.add('my-5')
     cardBody.appendChild(tabla)
 
     const headerTabla = document.createElement('thead')

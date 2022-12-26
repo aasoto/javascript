@@ -97,3 +97,51 @@ export const seleccionarIngProyectos = () => {
 
   return listadoProyectos
 }
+
+export const agregarATablaIngenieros = (empleado) => {
+  const tabla = document.querySelector('#tabla-ingenieros-cuerpo')
+
+  const filaTabla = document.createElement('tr')
+  filaTabla.classList.add('table-row')
+  tabla.appendChild(filaTabla)
+
+  const colNombre = document.createElement('td')
+  colNombre.classList.add('px-5')
+  colNombre.textContent = empleado.nombre
+
+  const colCargo = document.createElement('td')
+  colCargo.classList.add('px-5')
+  colCargo.textContent = empleado.nombreCargo()
+
+  const colEdad = document.createElement('td')
+  colEdad.classList.add('px-5')
+  colEdad.textContent = empleado.calcularEdad()
+
+  const colEstudios = document.createElement('td')
+  colEstudios.classList.add('px-5')
+  colEstudios.appendChild(lista(empleado.estudios))
+
+  const colProyectos = document.createElement('td')
+  colProyectos.classList.add('px-5')
+  colProyectos.appendChild(lista(empleado.proyectos))
+
+  const colOficina = document.createElement('td')
+  colOficina.classList.add('px-5')
+  colOficina.textContent = empleado.oficina
+  
+  const colNumCompu = document.createElement('td')
+  colNumCompu.classList.add('px-5')
+  colNumCompu.textContent = empleado.numCompu
+
+  filaTabla.append(colNombre, colCargo, colEdad, colEstudios, colProyectos, colOficina, colNumCompu)
+}
+
+const lista = (array) => {
+  const lista = document.createElement('ul')
+  array.forEach(element => {
+    const item = document.createElement('li')
+    item.textContent = element
+    lista.appendChild(item)
+  });
+  return lista
+}

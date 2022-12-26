@@ -1,7 +1,7 @@
 import { generos, cargos, loadGender, loadCargo } from "./modules/prelim-data.js";
 import { agregarATablaGerentes, agregarEstudio, agregarProyecto, gerenteForm, seleccionarEstudios, seleccionarHorario, seleccionarProyectos } from "./modules/gerente-form.js";
 import { Gerente } from "./class/gerente.js";
-import { ingenieroForm, agregarIngEstudio, agregarIngProyecto, seleccionarIngEstudios, seleccionarIngProyectos } from "./modules/ingeniero-form.js";
+import { ingenieroForm, agregarIngEstudio, agregarIngProyecto, seleccionarIngEstudios, seleccionarIngProyectos, agregarATablaIngenieros } from "./modules/ingeniero-form.js";
 import { Ingeniero } from "./class/ingeniero.js";
 
 const infoContainer = document.querySelector('#info-container')
@@ -103,11 +103,15 @@ btnGuardar.addEventListener('click', event => {
       numCompu.value
     )
 
+    limpiar()
+
     makeCardInformacion()
     if (!tablaIngenieros) {
       empleado.makeTablaIngenieros()
       tablaIngenieros = true
     }
+    
+    agregarATablaIngenieros(empleado)
   }
   if (tipoEmpleado.value == 3) {
     makeCardInformacion()
