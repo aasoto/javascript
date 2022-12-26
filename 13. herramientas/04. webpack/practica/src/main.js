@@ -1,6 +1,8 @@
 import { generos, cargos, loadGender, loadCargo } from "./modules/prelim-data.js";
 import { agregarATablaGerentes, agregarEstudio, agregarProyecto, gerenteForm, seleccionarEstudios, seleccionarHorario, seleccionarProyectos } from "./modules/gerente-form.js";
-import { Gerente } from "./gerente.js";
+import { Gerente } from "./class/gerente.js";
+import { ingenieroForm, agregarIngEstudio, agregarIngProyecto, seleccionarIngEstudios, seleccionarIngProyectos } from "./modules/ingeniero-form.js";
+import { Ingeniero } from "./class/ingeniero.js";
 
 const infoContainer = document.querySelector('#info-container')
 
@@ -16,6 +18,7 @@ const informacionEspecifica = document.querySelector('#informacion-especifica')
 
 let cardInformation = false
 let tablaGerentes = false
+let tablaIngenieros = false
 loadGender(genero)
 loadCargo(cargo)
 
@@ -34,6 +37,11 @@ cargo.addEventListener('change', event => {
   }
   if (event.target.value == 2) {
     limpiarInformacionEspecifica()
+
+    ingenieroForm(informacionEspecifica)
+  
+    agregarEstudio()
+    agregarProyecto()
   }
   if (event.target.value == 3) {
     limpiarInformacionEspecifica()
@@ -60,16 +68,17 @@ btnGuardar.addEventListener('click', event => {
     empleado = new Gerente (
       nombre.value, 
       fechaNacimiento.value, 
-      generos, generoValue, 
+      generos, 
+      generoValue, 
       cargos, 
       cargoValue, 
       seleccionarEstudios(), 
       seleccionarProyectos(),
-      seleccionarHorario(),
-      limpiar()
+      seleccionarHorario()
     )
+      
+    limpiar()
 
-    console.log(empleado.calcularEdad())
     makeCardInformacion()
     if (!tablaGerentes) {
       empleado.makeTablaGerentes()
@@ -78,7 +87,27 @@ btnGuardar.addEventListener('click', event => {
     agregarATablaGerentes(empleado)
   }
   if (tipoEmpleado.value == 2) {
+    const oficina = document.querySelector('#oficina')
+    const numCompu = document.querySelector('#numCompu')
+
+    empleado = new Ingeniero(
+      nombre.value, 
+      fechaNacimiento.value, 
+      generos, 
+      generoValue, 
+      cargos, 
+      cargoValue, 
+      seleccionarIngEstudios(), 
+      seleccionarIngProyectos(),
+      oficina.value,
+      numCompu.value
+    )
+
     makeCardInformacion()
+    if (!tablaIngenieros) {
+      empleado.makeTablaIngenieros()
+      tablaIngenieros = true
+    }
   }
   if (tipoEmpleado.value == 3) {
     makeCardInformacion()
