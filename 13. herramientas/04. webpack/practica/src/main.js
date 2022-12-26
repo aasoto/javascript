@@ -5,6 +5,8 @@ import { ingenieroForm, agregarIngEstudio, agregarIngProyecto, seleccionarIngEst
 import { Ingeniero } from "./class/ingeniero.js";
 import { agregarATablaMensajeros, mensajeroForm } from "./modules/mensajero-form.js";
 import { Mensajero } from "./class/mensajero.js";
+import { agregarATablaVigilantes, vigilanteForm } from "./modules/vigilante-form.js";
+import { Vigilante } from "./class/vigilante.js";
 
 const infoContainer = document.querySelector('#info-container')
 
@@ -22,6 +24,7 @@ let cardInformation = false
 let tablaGerentes = false
 let tablaIngenieros = false
 let tablaMensajeros = false
+let tablaVigilantes = false
 
 loadGender(genero)
 loadCargo(cargo)
@@ -54,6 +57,8 @@ cargo.addEventListener('change', event => {
   }
   if (event.target.value == 4) {
     limpiarInformacionEspecifica()
+
+    vigilanteForm(informacionEspecifica)
   }
 })
 
@@ -148,7 +153,34 @@ btnGuardar.addEventListener('click', event => {
     agregarATablaMensajeros(empleado)
   }
   if (tipoEmpleado.value == 4) {
+    const academia = document.querySelector('#academia')
+    const tipoArma = document.querySelector('#tipo-arma')
+    let salvoConducto = ''
+    if (tipoArma.value == 3) {
+      salvoConducto = document.querySelector('#salvo-conducto').value
+    }
+
+    empleado = new Vigilante (
+      nombre.value, 
+      fechaNacimiento.value, 
+      generos, 
+      generoValue, 
+      cargos, 
+      cargoValue,
+      academia.value,
+      tipoArma.value,
+      salvoConducto
+    )
+
+    limpiar()
+
     makeCardInformacion()
+    if (!tablaVigilantes) {
+      empleado.makeTablaVigilante()
+      tablaVigilantes = true
+    }
+
+    agregarATablaVigilantes(empleado)
   }
 })
 
