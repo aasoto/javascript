@@ -3,6 +3,8 @@ import { agregarATablaGerentes, agregarEstudio, agregarProyecto, gerenteForm, se
 import { Gerente } from "./class/gerente.js";
 import { ingenieroForm, agregarIngEstudio, agregarIngProyecto, seleccionarIngEstudios, seleccionarIngProyectos, agregarATablaIngenieros } from "./modules/ingeniero-form.js";
 import { Ingeniero } from "./class/ingeniero.js";
+import { agregarATablaMensajeros, mensajeroForm } from "./modules/mensajero-form.js";
+import { Mensajero } from "./class/mensajero.js";
 
 const infoContainer = document.querySelector('#info-container')
 
@@ -19,6 +21,8 @@ const informacionEspecifica = document.querySelector('#informacion-especifica')
 let cardInformation = false
 let tablaGerentes = false
 let tablaIngenieros = false
+let tablaMensajeros = false
+
 loadGender(genero)
 loadCargo(cargo)
 
@@ -40,11 +44,13 @@ cargo.addEventListener('change', event => {
 
     ingenieroForm(informacionEspecifica)
   
-    agregarEstudio()
-    agregarProyecto()
+    agregarIngEstudio()
+    agregarIngProyecto()
   }
   if (event.target.value == 3) {
     limpiarInformacionEspecifica()
+
+    mensajeroForm(informacionEspecifica)
   }
   if (event.target.value == 4) {
     limpiarInformacionEspecifica()
@@ -110,11 +116,36 @@ btnGuardar.addEventListener('click', event => {
       empleado.makeTablaIngenieros()
       tablaIngenieros = true
     }
-    
+
     agregarATablaIngenieros(empleado)
   }
   if (tipoEmpleado.value == 3) {
+
+    const licencia = document.querySelector('#licencia')
+    const tipoVehiculo = document.querySelector('#tipo-vehiculo')
+    const placa = document.querySelector('#placa')
+
+    empleado = new Mensajero (
+      nombre.value, 
+      fechaNacimiento.value, 
+      generos, 
+      generoValue, 
+      cargos, 
+      cargoValue,
+      licencia.value,
+      tipoVehiculo.value,
+      placa.value
+    )
+
+    limpiar()
+
     makeCardInformacion()
+    if (!tablaMensajeros) {
+      empleado.makeTablaMensajeros()
+      tablaMensajeros = true
+    }
+
+    agregarATablaMensajeros(empleado)
   }
   if (tipoEmpleado.value == 4) {
     makeCardInformacion()
