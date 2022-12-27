@@ -49,7 +49,7 @@ export default class Board {
       </div>
       <div class="new-item">
         <form action="#" class="form-new">
-          <input type="text" class="new-input" placeholder="+ Add another card" name="" id="">
+          <input type="text" class="new-input text" placeholder="+ Add another card" name="" id="">
           <input type="hidden" class="index-board" name="" value="${boardIndex}">
         </form>
       </div>

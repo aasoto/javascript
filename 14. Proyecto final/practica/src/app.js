@@ -22,6 +22,9 @@ kanban.add(board03)
 console.log(kanban)
 
 const container = document.querySelector('#container')
+const newBoardButton = document.querySelector('#new-board-button')
+
+newBoardButton.addEventListener('click', addBoard)
 
 renderUI()
 
@@ -33,4 +36,53 @@ function renderUI () {
     return board.getHTML(boardIndex, cardsHTML)
   })
   container.innerHTML = boardsHTML.join('')
+
+  enableNewCard()
 }
+
+function addBoard (e) {
+  const name = prompt('Name of the board')
+  if (name) {
+    const board = new Board (name, [])
+    kanban.add(board)
+
+    renderUI()
+  }
+}
+
+function enableNewCard () {
+  document.querySelectorAll('.form-new').forEach( form => {
+    form.addEventListener('submit', e => {
+      e.preventDefault()
+
+      const text = form.querySelector('.text').value
+      const card = new Card(text)
+
+      const indexBoard = form.querySelector('.index-board').value
+
+      kanban.addCard(card, indexBoard)
+      renderUI()
+    })
+  })
+
+  const moreButtons = document.querySelectorAll('.more-options')
+  moreButtons.forEach(button => {
+    button.addEventListener('click', showMoreOptions)
+  })
+}
+
+function showMoreOptions (e) {
+  const submenu = e.target.nextElementSibling
+  submenu.classList.toggle('submenu-active')
+}
+
+window.addEventListener('click', e => {
+  if (!e.target.matches('.more-options')) {
+    const menus = Array.from(document.querySelectorAll('.submenu-active'))
+    menus.forEach(menu => {
+      if (menu.classList.contains('submenu-active')) {
+        menu.classList.remove('submenu-active')
+      }
+    })
+  }
+})
