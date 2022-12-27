@@ -64,10 +64,32 @@ function enableNewCard () {
       renderUI()
     })
   })
+  configureSubmenus()
+}
 
+function configureSubmenus () {
   const moreButtons = document.querySelectorAll('.more-options')
+  
   moreButtons.forEach(button => {
     button.addEventListener('click', showMoreOptions)
+  })
+
+  const editBoardButton   = document.querySelectorAll('.board-submenu-edit')
+  const deleteBoardButton = document.querySelectorAll('.board-submenu-delete')
+  const editCardButton    = document.querySelectorAll('.card-submenu-edit')
+  const deleteCardButton  = document.querySelectorAll('.card-submenu-delete')
+  
+  editBoardButton.forEach(button => {
+    button.addEventListener('click', editBoard)
+  })
+  deleteBoardButton.forEach(button => {
+    button.addEventListener('click', deleteBoard)
+  })
+  editCardButton.forEach(button => {
+    button.addEventListener('click', editCard)
+  })
+  deleteCardButton.forEach(button => {
+    button.addEventListener('click', deleteCard)
   })
 }
 
@@ -86,3 +108,39 @@ window.addEventListener('click', e => {
     })
   }
 })
+
+function editBoard (e) {
+  const id = e.target.getAttribute('data-id')
+  const index = e.target.getAttribute('data-index')
+  const currentTitle = kanban.getBoard(index).title
+  const title = prompt('New title', currentTitle)
+  if (title) {
+    kanban.updateBoard(id, index, title)
+    renderUI()
+  }
+}
+function deleteBoard (e) {
+  const index = e.target.getAttribute('data-index')
+  kanban.removeBoard(index)
+  renderUI()
+}
+function editCard (e) {
+  const indexCard = e.target.getAttribute('data-index')
+  const indexBoard = e.target.getAttribute('data-board-index')
+
+  const currentTitle = kanban.getBoard(indexBoard).get(indexCard).title
+
+  const title = prompt('New title', currentTitle)
+  if (title) {
+    kanban.updateCard(indexBoard, indexCard, title)
+    renderUI()
+  }
+}
+function deleteCard (e) {
+  const indexCard = e.target.getAttribute('data-index')
+  const indexBoard = e.target.getAttribute('data-board-index')
+
+  kanban.removeCard(indexBoard, indexCard)
+
+  renderUI()
+}
