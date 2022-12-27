@@ -12,11 +12,25 @@ const card05 = new Card('Tarea 5')
 const card06 = new Card('Tarea 6')
 
 const board01 = new Board('TO DO', [card01, card02])
-const board02 = new Board('TO DO', [card03, card04])
-const board03 = new Board('TO DO', [card05, card06])
+const board02 = new Board('IN PROGRESS', [card03, card04])
+const board03 = new Board('DONE', [card05, card06, card01])
 
 kanban.add(board01)
 kanban.add(board02)
 kanban.add(board03)
 
 console.log(kanban)
+
+const container = document.querySelector('#container')
+
+renderUI()
+
+function renderUI () {
+  const boardsHTML = kanban.boards.map( (board, boardIndex) => {
+    const cardsHTML = board.items.map((card, index) => {
+      return card.getHTML(board, boardIndex, index)
+    })
+    return board.getHTML(boardIndex, cardsHTML)
+  })
+  container.innerHTML = boardsHTML.join('')
+}
