@@ -2,6 +2,8 @@ import Board from "./board.js";
 import Card from "./card.js";
 import Kanban from "./kanban.js";
 
+let dropOk = false
+
 const kanban = new Kanban()
 
 const card01 = new Card('Tarea 1')
@@ -38,6 +40,8 @@ function renderUI () {
   container.innerHTML = boardsHTML.join('')
 
   enableNewCard()
+
+  enableDragAndDropEvents()
 }
 
 function addBoard (e) {
@@ -143,4 +147,68 @@ function deleteCard (e) {
   kanban.removeCard(indexBoard, indexCard)
 
   renderUI()
+}
+
+//DRAG & DROP
+
+const classes = {
+  hide: 'hide',
+  placeholder: 'placeholder',
+  active: 'placeholder-active'
+}
+
+function enableDragAndDropEvents () {
+  const cards = document.querySelectorAll('.card')
+
+  cards.forEach(card => {
+    card.addEventListener('dragstart', dragstart)
+    card.addEventListener('dragend', dragend)
+  })
+
+  const boards = document.querySelectorAll('.board')
+
+  boards.forEach(board => {
+    board.addEventListener('dragenter', dragenter)
+    board.addEventListener('dragover', dragover)
+    board.addEventListener('dragleave', dragleave)
+    board.addEventListener('drop', drop)
+  })
+}
+
+function dragstart (e) {
+  const boardId = e.target.getAttribute('data-boardid')
+  const cardId = e.target.id
+
+  e.dataTransfer.setData('text/plain', JSON.stringify({boardId, cardId}))
+  e.target.classList.add(classes.hide)
+}
+
+function dragend (e) {
+  e.target.classList.remove(classes.hide)
+}
+
+function dragenter (e) {
+  const item = e.target
+  dropOk = true
+
+  if (item.classList.contains(classes.placeholder)) {
+    item.classList.add(classes.active)
+  }
+}
+function dragover (e) {
+  const item = e.target
+
+  if (item.classList.contains(classes.placeholder) || item.classList.contains('board')) {
+    item.classList.add(classes.active)
+  } else if (item.getAttribute('data-id') != undefined) {
+    const id = item.getAttribute('data-id')
+    document.querySelector('#' + id).querySelector('.placeholder').classList.add(classes.active)
+  }
+}
+function dragleave (e) {
+  //e.target.classList.remove(classes.active)
+  document.querySelectorAll('.' + classes.active).forEach(style => style.classList.remove(classes.active))
+}
+function drop (e) {
+  
 }
