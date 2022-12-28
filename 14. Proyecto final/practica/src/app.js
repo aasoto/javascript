@@ -188,6 +188,7 @@ function dragend (e) {
 }
 
 function dragenter (e) {
+  e.preventDefault()
   const item = e.target
   dropOk = true
 
@@ -196,6 +197,7 @@ function dragenter (e) {
   }
 }
 function dragover (e) {
+  e.preventDefault()
   const item = e.target
 
   if (item.classList.contains(classes.placeholder) || item.classList.contains('board')) {
@@ -210,5 +212,56 @@ function dragleave (e) {
   document.querySelectorAll('.' + classes.active).forEach(style => style.classList.remove(classes.active))
 }
 function drop (e) {
+  e.preventDefault()
+  let target, id
+ 
+  if (e.target.getAttribute('data-id') == undefined) {
+    target = e.target
+  } else {
+    id = e.target.getAttribute('data-id')
+    target = document.querySelector('#' + id)
+  }
+
+  if (!dropOk) {
+    return false
+  }
+
+  const data = JSON.parse(e.dataTransfer.getData('text/plain'))
+  const draggable = document.querySelector('#' + data.cardId)
   
+  let targetBoardId, targetCardId
+
+  if (target.classList.contains('card')) {
+    targetBoardId = target.parentElement.parentElement.id
+
+    targetCardId = target.id
+
+    target.insertAdjacentElement('afterend', draggable)
+  } else if (target.classList.contains('board')) {
+    targetBoardId = target.id
+    targetCardId = undefined
+    target.querySelector('.items').appendChild(draggable)
+  }
+
+  if (!targetCardId && !targetBoardId) {
+    return false
+  }
+
+  targetBoardId = targetBoardId.split('--')[1]
+  targetCardId  = targetCardId?.split('--')[1] ?? -1
+  data.cardId   = data.cardId.split('--')[1]
+  data.boardId  = data.boardId.split('--')[1]
+
+  const indexBoardSrc = kanban.getIndex(data.boardId)
+  const indexBoardTarget = kanban.getIndex(targetBoardId)
+  const indexCardSrc = kanban.getBoard(indexBoardSrc).getIndex(data.cardId)
+  const indexCardTarget = (targetCardId === -1)? kanban.getBoard(indexBoardTarget).length : kanban.getBoard(indexBoardTarget).getIndex(targetCardId)
+
+  kanban.moveCard(indexBoardSrc, indexCardSrc, indexBoardTarget, indexCardTarget)
+
+  draggable.classList.remove(classes.hide)
+  renderUI()
+
+  console.log(kanban)
+
 }
