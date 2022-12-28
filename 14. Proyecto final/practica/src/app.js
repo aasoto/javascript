@@ -6,22 +6,24 @@ let dropOk = false
 
 const kanban = new Kanban()
 
-const card01 = new Card('Tarea 1')
-const card02 = new Card('Tarea 2')
-const card03 = new Card('Tarea 3')
-const card04 = new Card('Tarea 4')
-const card05 = new Card('Tarea 5')
-const card06 = new Card('Tarea 6')
+await kanban.loadBoards()
 
-const board01 = new Board('TO DO', [card01, card02])
-const board02 = new Board('IN PROGRESS', [card03, card04])
-const board03 = new Board('DONE', [card05, card06, card01])
+// const card01 = new Card('Tarea 1')
+// const card02 = new Card('Tarea 2')
+// const card03 = new Card('Tarea 3')
+// const card04 = new Card('Tarea 4')
+// const card05 = new Card('Tarea 5')
+// const card06 = new Card('Tarea 6')
 
-kanban.add(board01)
-kanban.add(board02)
-kanban.add(board03)
+// const board01 = new Board('TO DO', [card01, card02])
+// const board02 = new Board('IN PROGRESS', [card03, card04])
+// const board03 = new Board('DONE', [card05, card06, card01])
 
-console.log(kanban)
+// kanban.add(board01)
+// kanban.add(board02)
+// kanban.add(board03)
+
+// console.log(kanban)
 
 const container = document.querySelector('#container')
 const newBoardButton = document.querySelector('#new-board-button')

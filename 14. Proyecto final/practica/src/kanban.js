@@ -1,17 +1,34 @@
-
+import Board from "./board.js";
+import Card from "./card.js";
+import { get, post } from "./http.js";
 export default class Kanban {
   boards
+  url
 
   constructor () {
     this.boards = []
+    this.url = 'http://localhost:3000'
   }
 
   add (board) {
     this.boards.push(board)
+
+    post(`${this.url}/new-board`, 'json', {
+      id: board.id,
+      title: board.title
+    }).then( response => {
+      console.log(response)
+    })
   }
 
   addCard (card, indexBoard) {
     this.getBoard(indexBoard).add(card)
+
+    post(`${this.url}/update-all`, 'json', {
+      boards: this.toJSON()
+    }).then( response => {
+      console.log(response)
+    })
   }
 
   getBoard (index) {
@@ -48,5 +65,44 @@ export default class Kanban {
   updateCard (indexBoard, indexCard, title) {
     const card = this.boards[indexBoard].items[indexCard]
     card.title = title
+  }
+
+  async loadBoards () {
+    try {
+      const data = await get(this.url)
+      
+      this.boards = data.boards.map( board => {
+        const cards = board.cards.map( card => {
+          const newCard = new Card(card.title)
+          newCard.id = card.id
+          return newCard
+        })
+
+        const newBoard = new Board (board.title, cards)
+        newBoard.id = board.id
+
+        return newBoard
+      })
+    } catch (ex) {
+
+    }
+  }
+
+  toJSON () {
+    const json = this.boards.map(board => {
+      const cards = board.items.map( card => {
+        return {
+          id: card.id,
+          title: card.title
+        }
+      })
+      return {
+        id: board.id,
+        title: board.title,
+        cards: cards
+      }
+    })
+
+    return json
   }
 }
